@@ -1,12 +1,16 @@
 // Implements a dictionary's functionality
-
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+ 
 #include <stdbool.h>
 
 #include "dictionary.h"
 
 #define HTSIZE 26
 
-type struct _node 
+typedef struct _node 
 {
     char word[LENGTH + 1];
     struct _node* next;
@@ -46,7 +50,7 @@ bool check(const char *word)
 bool load(const char *dictionary)
 {
     // properly initialize hashtable to NULL
-    for ( i = 0; i < HTSIZE; i++ )
+    for ( int i = 0; i < HTSIZE; i++ )
         hashtable[i] = NULL;
 
     // open dictionary file
@@ -56,6 +60,8 @@ bool load(const char *dictionary)
         fprintf(stderr, "Could not open %s.\n", dictionary);
         return false;
     }
+
+    char word[LENGTH + 1];
 
     while ( fscanf(dictptr, "%s", word) != EOF )
     {
@@ -68,7 +74,7 @@ bool load(const char *dictionary)
         }
 
         // copy word into node
-        strcopy(new_node->word, word);
+        strcpy(new_node->word, word);
         // set next to NULL, to avoid pointing to garbage values
         new_node->next = NULL;
 
@@ -76,7 +82,7 @@ bool load(const char *dictionary)
         int h = hash(word); //TODO
         
         // put into hashtable
-        new_node->next = hashtable[i];
+        new_node->next = hashtable[h];
         hashtable[h] = new_node;
     }
 
@@ -89,7 +95,7 @@ unsigned int size(void)
 {
     int count = 0;
 
-    for ( i = 0; i < HTSIZE ; i++ )
+    for ( int i = 0; i < HTSIZE ; i++ )
     {
         node* ptr = hashtable[i];
         while ( ptr != NULL )
@@ -105,7 +111,7 @@ unsigned int size(void)
 // Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
-    for ( i = 0; i < HTSIZE ; i++ )
+    for ( int i = 0; i < HTSIZE ; i++ )
     {
         node* ptr = hashtable[i];
         while ( ptr != NULL )
