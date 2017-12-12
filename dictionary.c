@@ -52,11 +52,13 @@ bool load(const char *dictionary)
         // set next to NULL, to avoid pointing to garbage values
         new_node->next = NULL;
 
-        // hash TODO
+        // hash 
+        int h = hash(word); //TODO
         
         // put into hashtable
-
-
+        if ( hashtable[h] != NULL )
+            new_node->next = hashtable->next;
+        hashtable[h] = new_node;
     }
 
     fclose(dictptr);
