@@ -15,6 +15,14 @@ node;
 
 node* hashtable[HTSIZE];
 
+// returns hash
+int hash(const char *word)
+{
+    int baseAsciiIndex = 97;
+    int alphaIndex = ( tolower(word[0]) - baseAsciiIndex ) % 26;
+    return alphaIndex;
+}
+
 // Returns true if word is in dictionary else false
 bool check(const char *word)
 {
