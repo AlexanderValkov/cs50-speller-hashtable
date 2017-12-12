@@ -35,9 +35,15 @@ bool check(const char *word)
 
     node* ptr = hashtable[h];
 
+    // copy with 'tolower' in tmp var for case insensitive search
+    int size = strlen(word);
+    char lword[size + 1];
+    for ( int i = 0; i < size + 1; i++ )
+        lword[i] = tolower(word[i]);
+
     while ( ptr != NULL )
     {
-        if ( strcmp(ptr->word, word) == 0 )
+        if ( strcmp(ptr->word, lword) == 0 )
         {
             return true;
         }
