@@ -26,7 +26,19 @@ int hash(const char *word)
 // Returns true if word is in dictionary else false
 bool check(const char *word)
 {
-    // TODO
+    // get hash of the word
+    int h = hash(word);
+
+    node* ptr = hashtable[h];
+
+    while ( ptr != NULL )
+    {
+        if ( strcmp(ptr->word, word) == 0 )
+        {
+            return true;
+        }
+        ptr = ptr->next;
+    }
     return false;
 }
 
