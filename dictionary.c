@@ -64,13 +64,14 @@ bool load(const char *dictionary)
         int h = hash(word); //TODO
         
         // put into hashtable
-        if ( hashtable[h] != NULL )
-            new_node->next = hashtable->next;
+        //if ( hashtable[h] != NULL )
+        //    new_node->next = hashtable[i]->next;
+        new_node->next = hashtable[i];
         hashtable[h] = new_node;
     }
 
     fclose(dictptr);
-    return false;
+    return true;
 }
 
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
