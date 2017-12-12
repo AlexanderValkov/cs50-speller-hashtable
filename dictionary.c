@@ -64,8 +64,6 @@ bool load(const char *dictionary)
         int h = hash(word); //TODO
         
         // put into hashtable
-        //if ( hashtable[h] != NULL )
-        //    new_node->next = hashtable[i]->next;
         new_node->next = hashtable[i];
         hashtable[h] = new_node;
     }
@@ -95,6 +93,15 @@ unsigned int size(void)
 // Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
-    // TODO
-    return false;
+    for ( i = 0; i < HTSIZE ; i++ )
+    {
+        node* ptr = hashtable[i];
+        while ( ptr != NULL )
+        {
+            node* next = ptr->next;
+            free(ptr);
+            ptr = next;
+        }
+    }
+    return true;
 }
